@@ -4,78 +4,36 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://unpkg.com/xlsjs"></script>
+    <script lang="javascript" src="https://cdn.sheetjs.com/xlsx-0.19.3/package/dist/xlsx.full.min.js"></script>
     <title>Excel Viewer</title>
-    <style>
-      table {
-        border-collapse: collapse;
-        width: 100%;
-      }
-  
-      th, td {
-        border: 1px solid black;
-        padding: 8px;
-        text-align: left;
-      }
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>Excel Viewer</h1>
-    <input type="file" id="excelFile" accept=".xls" />
-    <div id="tableContainer"></div>
-  
-    <script>
-      document.getElementById('excelFile').addEventListener('change', handleFile, false);
-  
-      function handleFile(event) {
-        const file = event.target.files[0];
-        const reader = new FileReader();
-  
-        reader.onload = function(e) {
-          const data = new Uint8Array(e.target.result);
-          const workbook = XLS.read(data, { type: 'array' });
-          const worksheet = workbook.Sheets[workbook.SheetNames[0]];
-          const jsonData = XLS.utils.sheet_to_json(worksheet, { header: 1 });
-  
-          renderTable(jsonData);
-        };
-  
-        reader.readAsArrayBuffer(file);
-      }
-  
-      function renderTable(data) {
-        const tableContainer = document.getElementById('tableContainer');
-        tableContainer.innerHTML = '';
-  
-        const table = document.createElement('table');
-        const tableHead = document.createElement('thead');
-        const tableBody = document.createElement('tbody');
-  
-        const headerRow = document.createElement('tr');
-        data[0].forEach(function(cellData) {
-          const headerCell = document.createElement('th');
-          headerCell.textContent = cellData;
-          headerRow.appendChild(headerCell);
-        });
-  
-        tableHead.appendChild(headerRow);
-  
-        for (let i = 1; i < data.length; i++) {
-          const row = document.createElement('tr');
-  
-          data[i].forEach(function(cellData) {
-            const cell = document.createElement('td');
-            cell.textContent = cellData;
-            row.appendChild(cell);
-          });
-  
-          tableBody.appendChild(row);
-        }
-  
-        table.appendChild(tableHead);
-        table.appendChild(tableBody);
-        tableContainer.appendChild(table);
-      }
-    </script>
+    <div class="page">
+        <header>
+            <h1>Online Excel tools</h1>
+        </header>
+        <section>
+            <nav>
+                <h2>Tools</h2>
+                <button id="button_create">Create</button>
+                <button id="button_edit">Edit</button>
+            </nav>
+            <main>
+                <div id="upload">
+                    <label for="excelFile">
+                        <p>Select an Excel file</p>
+                        <img src="upload.svg" alt="Upload svg" id="upload_svg" height="25px">
+                    </label>
+                    <input type="file" id="excelFile" accept=".xls, .xlsx"/>
+                </div>
+                <div id="tableContainer"></div>
+            </main>
+        </section>
+        <footer>
+            Created by Dejan Ribarovski | 2023
+        </footer>
+    </div>
+    <script lang="javascript" src="index.js"></script>
 </body>
 </html>

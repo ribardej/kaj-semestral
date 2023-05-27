@@ -1,0 +1,114 @@
+body {
+    font-family: Arial, Helvetica, sans-serif;
+}
+h1 {
+    text-align: center;
+    color: #4CAF50;
+}
+table {
+    border-collapse: collapse;
+    width: 100%;
+    background-color: whitesmoke;
+}
+th, td {
+    border: 1px solid black;
+    padding: 8px;
+    text-align: left;
+}
+button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 14px 20px;
+    margin: 0.5em 0;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    border-radius: 5px;
+}
+button:hover {
+    opacity: 0.8;
+}
+body {
+    margin: 0;
+}
+.page {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: black;
+}
+.page header {
+    display: flex;
+    background: rgb(240, 240, 240);
+    height: 100px;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+}
+.page section {
+    display: flex;
+    width: 100%;
+    min-height: 500px;
+    flex-grow: 1;
+}
+.page section nav {
+    display: flex;
+    background: rgb(221, 221, 221);
+    padding: 1em;
+    flex-direction: column;
+    width: fit-content;
+    flex-shrink: 0;
+}
+.page section nav button {
+    margin: 0.5em 0em;
+}
+.page section main {
+    padding: 1em;
+    background: white;
+    flex-grow: 1;
+}
+#upload{
+    margin-bottom: 1em;
+}
+#upload label{
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 0.5em;
+}
+#upload label:hover{
+    cursor: pointer;
+    background-color: rgb(240, 240, 240);
+}
+#upload p {
+    margin: 0.5em 0;
+}
+#upload input {
+    display: none;
+}
+.page footer {
+    display: flex;
+    background: rgb(232, 232, 232);
+    min-height: 100px;
+    justify-content: center;
+    align-items: center;
+}
+
+@media (max-width: 700px) {
+    .page section{
+        flex-direction: column-reverse;
+    }
+    .page section nav{
+        order: 1;
+        width: 100%;
+        ;
+        box-sizing: border-box;
+    }
+    .page section main{
+        order: -1;
+    }
+}
