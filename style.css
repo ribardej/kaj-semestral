@@ -8,12 +8,26 @@ h1 {
 table {
     border-collapse: collapse;
     width: 100%;
-    background-color: whitesmoke;
+    background-color: rgb(227, 227, 227);
 }
 th, td {
     border: 1px solid black;
     padding: 8px;
-    text-align: left;
+    text-align: center;
+    cursor: pointer;
+}
+th {
+    background-color: grey;
+    color: white;
+}
+th:hover {
+    opacity: 0.8;
+    background-color: white;
+    color: black;
+}
+td:hover {
+    opacity: 0.8;
+    background-color: white;
 }
 button {
     background-color: #4CAF50;
@@ -45,7 +59,7 @@ body {
     align-items: center;
     justify-content: center;
 }
-.page section {
+#pageSection {
     display: flex;
     width: 100%;
     min-height: 500px;
@@ -66,11 +80,17 @@ body {
     padding: 1em;
     background: white;
     flex-grow: 1;
+    display: flex;
+    flex-direction: column;
 }
-#upload{
+#tableContainer {
+    flex-grow: 1;
+}
+#upAndDown{
     margin-bottom: 1em;
+    height: fit-content;
 }
-#upload label{
+#upAndDown label{
     display: flex;
     flex-direction: row-reverse;
     align-items: center;
@@ -80,15 +100,24 @@ body {
     border-radius: 5px;
     padding: 0.5em;
 }
-#upload label:hover{
+#upAndDown label:hover{
     cursor: pointer;
     background-color: rgb(240, 240, 240);
 }
-#upload p {
+#upAndDown p {
     margin: 0.5em 0;
 }
-#upload input {
+#upAndDown input {
     display: none;
+}
+#buttonDownload {
+    display: none;
+}
+#upAndDown {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
 }
 .page footer {
     display: flex;

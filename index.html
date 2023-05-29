@@ -13,20 +13,29 @@
         <header>
             <h1>Online Excel tools</h1>
         </header>
-        <section>
+        <section id="pageSection">
             <nav>
                 <h2>Tools</h2>
-                <button id="button_create">Create</button>
-                <button id="button_edit">Edit</button>
+                <button id="buttonCreate">Create</button>
+                <button id="buttonEdit">Edit</button>
             </nav>
             <main>
-                <div id="upload">
-                    <label for="excelFile">
-                        <p>Select an Excel file</p>
-                        <img src="upload.svg" alt="Upload svg" id="upload_svg" height="25px">
-                    </label>
-                    <input type="file" id="excelFile" accept=".xls, .xlsx"/>
-                </div>
+                <section id="upAndDown">
+                    <div id="upload">
+                        <label for="excelFile">
+                            <p>Select an Excel file</p>
+                            <img src="resources/upload.svg" alt="Upload svg" id="upload_svg" height="25px">
+                        </label>
+                        <input type="file" id="excelFile" accept=".xls, .xlsx"/>
+                    </div>
+                    <div id="download">
+                        <label for="buttonDownload">
+                            <p>Download as Excel file</p>
+                            <img src="resources/download.svg" alt="Download svg" id="download_svg" height="25px">
+                        </label>
+                        <button id="buttonDownload"></button>
+                    </div>
+                </section>
                 <div id="tableContainer"></div>
             </main>
         </section>
