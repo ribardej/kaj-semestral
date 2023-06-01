@@ -13,3 +13,6 @@ Uživatel interaguje s aplikací pomocí úprav v interaktivní tabulce, může 
 Pokud je tabulka příliž široká, objeví se horizontální scrollbar.  
 V sekci ".main" je připraven mechanismus drag&drop.  
 Animace jsou u :hover efektu nad tlačítky pro rozšíření tabulky.  
+Historie je funkční.  
+Aplikace funguje i offline. Aktivně však stav nekontroluje, jelikož připojení k internetu stejně nepotřebuje k funkčnosti.  
+Audio je u kliknutí na tlačítka "Edit"/"Create" v sekci "Tools".  
