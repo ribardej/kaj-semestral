@@ -185,7 +185,6 @@ buttonEdit.addEventListener('click', function() {
     editTable.clearTable();
     currentState = 'edit';
 
-    // Push the state to the browser history
     history.pushState({ state: 'edit', tableData: ''}, '', 'edit');
     console.log(history.state);
 });
@@ -196,7 +195,6 @@ buttonCreate.addEventListener('click', function() {
     uploadDiv.style.display = 'none';
     currentState = 'create';
 
-    // Push the state to the browser history
     history.pushState({ state: 'create', tableData: '' }, '', 'create');
     console.log(history.state);
 
@@ -234,7 +232,7 @@ window.addEventListener('popstate', function(event) {
     }
   });
 
-  // Handle file input change event
+// Handle file input change event
 function handleFile(event) {
 const file = event.target.files[0];
 const reader = new FileReader();
@@ -266,6 +264,7 @@ function handleFileDrop(event) {
 
     const file = event.dataTransfer.files[0]; // Retrieve the dropped file from the event object
     const reader = new FileReader();
+    buttonEdit.click();
 
     reader.onload = function(e) {
         const data = new Uint8Array(e.target.result);
@@ -273,7 +272,7 @@ function handleFileDrop(event) {
         const worksheet = workbook.Sheets[workbook.SheetNames[0]];
         const jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
 
-        editTable.renderTable(jsonData);
+        editTable.renderTable(jsonData, 'edit');
     };
 
     reader.readAsArrayBuffer(file);
