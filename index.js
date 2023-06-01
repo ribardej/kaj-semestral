@@ -5,6 +5,7 @@ class EditTable {
     #buttonLeft
     #buttonBottom
 
+    // Initialize the table and its components
     constructor(){
         const tableContainer = document.getElementById('tableContainer');
         tableContainer.innerHTML = '';
@@ -25,6 +26,7 @@ class EditTable {
         tableContainer.appendChild(this.#table);
     }
 
+    // Clear the table and hide buttons
     clearTable() {
         this.#tableHead.innerHTML = '';
         this.#tableBody.innerHTML = '';
@@ -32,11 +34,12 @@ class EditTable {
         this.#buttonBottom.style.display = 'none';
     }
 
-    renderTable(data) {
+    // Render the table with the provided data and state value
+    renderTable(data, stateVal) {
+        console.log(data);
         this.#tableHead.innerHTML = '';
         this.#tableBody.innerHTML = '';
 
-        
         const headerRow = document.createElement('tr');
         if(data[0] === undefined) {
             alert('Empty table!');
@@ -46,6 +49,23 @@ class EditTable {
         }
         this.#buttonLeft.style.display = 'block';
         this.#buttonBottom.style.display = 'block';
+        let columnCount = 0;
+        let rowCount = data.length;
+        for (let i = 0; i < data.length; i++) {
+            if(data[i].length > columnCount) {
+                columnCount = data[i].length;
+            }
+        }
+        for(let z = 0; z < rowCount; z++) {
+            if(data[z].length < columnCount) {
+                for(let i = data[z].length; i < columnCount; i++) {
+                    data[z].push('');
+                }
+            }
+            for (let i = 0; i < columnCount; i++) {
+                if(data[z][i] == undefined) data[z][i] = '';
+            }
+        }
         data[0].forEach(function(cellData) {
             const headerCell = document.createElement('th');
             headerCell.textContent = cellData;
@@ -55,7 +75,6 @@ class EditTable {
         this.#tableHead.appendChild(headerRow);
         checkTableWidth();
 
-        
         for (let i = 1; i < data.length; i++) {
             const row = document.createElement('tr');
         
@@ -67,7 +86,6 @@ class EditTable {
         
             this.#tableBody.appendChild(row);
         }
-        
         let cells = this.#table.getElementsByTagName('td');
         for (let i = 0; i < cells.length; i++) {
             cells[i].addEventListener('click', editCell);
@@ -76,9 +94,51 @@ class EditTable {
         for (let i = 0; i < headers.length; i++) {
             headers[i].addEventListener('click', editCell);
         }
-    } 
-}
 
+        const state = {
+            state: stateVal,
+            tableData: data.slice()
+        };
+        history.replaceState(state, '', stateVal + '?=' + JSON.stringify(state.tableData));
+        console.log(history.state);
+    } 
+
+    // Update the history state with the current table data and state value
+    updateHistoryState(stateVal) {
+        const tableData = [];
+        const headerData = [];
+      
+        const headerCells = this.#tableHead.querySelectorAll('th');
+        headerCells.forEach(function(headerCell) {
+          headerData.push(headerCell.innerHTML);
+        });
+      
+        tableData.push(headerData);
+      
+        const rows = this.#tableBody.querySelectorAll('tr');
+        rows.forEach(function(row) {
+          const cells = row.querySelectorAll('td');
+          const rowData = Array.from(cells).map(function(cell) {
+            return cell.innerHTML;
+        });
+        tableData.push(rowData);
+    });
+    
+    const state = {
+        state: stateVal,
+        tableData: tableData.slice()
+    };
+    history.pushState(state, '', stateVal + '?=' + JSON.stringify(tableData));
+    console.log(history.state);
+}
+}
+const editTable = new EditTable();
+
+let currentState = 'edit';
+history.pushState({ state: currentState }, '', 'edit');
+console.log(history.state);
+
+// Export the table to Excel format and download the file
 function exportTableToExcel(tableId, filename) {
     const table = document.getElementById(tableId);
     if(table === null) {
@@ -112,31 +172,69 @@ function exportTableToExcel(tableId, filename) {
 const inputExcel = document.getElementById('excelFile');
 inputExcel.addEventListener('change', handleFile, false);
 
-const editTable = new EditTable();
 
 const buttonEdit = document.getElementById('buttonEdit');
 const buttonCreate = document.getElementById('buttonCreate');
 const uploadDiv = document.getElementById('upload');
+buttonEdit.disabled = true;
 
 buttonEdit.addEventListener('click', function() {
-  buttonEdit.disabled = true;
-  buttonCreate.disabled = false;
-  uploadDiv.style.display = 'block';
-  editTable.clearTable();
+    buttonEdit.disabled = true;
+    buttonCreate.disabled = false;
+    uploadDiv.style.display = 'block';
+    editTable.clearTable();
+    currentState = 'edit';
+
+    // Push the state to the browser history
+    history.pushState({ state: 'edit', tableData: ''}, '', 'edit');
+    console.log(history.state);
 });
 
 buttonCreate.addEventListener('click', function() {
-  buttonCreate.disabled = true;
-  buttonEdit.disabled = false;
-  uploadDiv.style.display = 'none';
-  const data = [
-    ['Header', 'Header', 'Header'],
-    ['Data', 'Data', 'Data'],
-    ['Data', 'Data', 'Data']
-  ];
-  editTable.renderTable(data);
+    buttonCreate.disabled = true;
+    buttonEdit.disabled = false;
+    uploadDiv.style.display = 'none';
+    currentState = 'create';
+
+    // Push the state to the browser history
+    history.pushState({ state: 'create', tableData: '' }, '', 'create');
+    console.log(history.state);
+
+    const data = [
+        ['Header', 'Header', 'Header'],
+        ['Data', 'Data', 'Data'],
+        ['Data', 'Data', 'Data'],
+        ['Data', 'Data', 'Data']
+    ];
+    editTable.renderTable(data, 'create');
 });
 
+// Handle the popstate event when navigating back or forward in history
+window.addEventListener('popstate', function(event) {
+    if (event.state) {
+      currentState = event.state.state;
+      console.log(currentState);
+      if (currentState === 'create') {
+          buttonCreate.click();
+            if(event.state.tableData === undefined || event.state.tableData === '') {
+                return;
+            } else {
+                console.log(event.state.tableData);
+                editTable.renderTable(event.state.tableData, 'create');
+            }
+      } else if (currentState === 'edit') {
+            buttonEdit.click();
+            if(event.state.tableData === undefined || event.state.tableData === '') {
+                return;
+            } else {
+                console.log(event.state.tableData);
+                editTable.renderTable(event.state.tableData, 'edit');
+            }
+      }
+    }
+  });
+
+  // Handle file input change event
 function handleFile(event) {
 const file = event.target.files[0];
 const reader = new FileReader();
@@ -147,7 +245,7 @@ reader.onload = function(e) {
     const worksheet = workbook.Sheets[workbook.SheetNames[0]];
     const jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
 
-    editTable.renderTable(jsonData);
+    editTable.renderTable(jsonData, 'edit');
 };
 
 reader.readAsArrayBuffer(file);
@@ -160,6 +258,7 @@ function handleDragOver(event) {
     main.style.border = '2px dashed #000';
 }
   
+// Handle drag and drop file event
 function handleFileDrop(event) {
     event.preventDefault();
     const main = document.getElementsByTagName('main')[0];
@@ -186,12 +285,12 @@ buttonDownload.addEventListener('click', exportTableToExcel.bind(null, 'excelDat
 
 addEventListener('resize', checkTableWidth);
 
-
+//enable horizontal scrolling if table width is greater than container width
 function checkTableWidth(){
     let table = document.getElementById('excelDataTable');
     let tableContainer = document.getElementById('tableContainer');
-    console.log(table.offsetWidth, table.parentElement.parentElement.offsetWidth);
-    if(table.offsetWidth > (tableContainer.parentElement.offsetWidth * 0.8)) {
+    // console.log(table.offsetWidth, table.parentElement.parentElement.offsetWidth);
+    if(table.offsetWidth > (tableContainer.parentElement.offsetWidth * 0.75)) {
         tableContainer.style.overflowX = 'scroll';
     }
     else {
@@ -199,6 +298,7 @@ function checkTableWidth(){
     }
 }
 
+//append columns button functionality
 const appendColumnsButton = document.getElementById('appendColumns');
 appendColumnsButton.addEventListener('click', function() {
     let rows = document.querySelectorAll('#excelDataTable tr');
@@ -207,19 +307,20 @@ appendColumnsButton.addEventListener('click', function() {
     for (let i = 0; i < rows.length; i++) {
         if(i === 0) {
             let newCell = document.createElement('th');
-            newCell.textContent = '';
+            newCell.textContent = undefined;
             newCell.addEventListener('click', editCell);
             rows[i].appendChild(newCell);
         }
         else {
             let newCell = document.createElement('td');
-            newCell.textContent = '';
+            newCell.textContent = undefined;
             newCell.addEventListener('click', editCell);
             rows[i].appendChild(newCell);
         }
     }
-  });
-  
+});
+
+//append rows button functionality
 const appendRowsButton = document.getElementById('appendRows')
 appendRowsButton.addEventListener('click', function() {
     let table = document.getElementById('excelDataTable');
@@ -229,35 +330,33 @@ appendRowsButton.addEventListener('click', function() {
     let newRow = table.insertRow(newRowCount);
     for (let i = 0; i < newColumnCount; i++) {
         let newCell = newRow.insertCell(i);
-        newCell.textContent = '';
+        newCell.textContent = undefined;
         newCell.addEventListener('click', editCell);
     }
-  });
+});
 
+// interactivness of the table
 function editCell() {
     if(this.innerHTML === '<input id="editCellInput" type="text">') return;
     console.log('editCell');
     let cell = this;
     const oldValue = cell.innerHTML;
 
-    // Create an input element
     let input = document.createElement('input');
     input.id = 'editCellInput';
     input.type = 'text';
     input.value = oldValue;
 
-    // Replace the cell content with the input element
     cell.innerHTML = '';
     cell.appendChild(input);
-
-    // Focus on the input element
     input.focus();
 
-    // Add event listener to handle input change
     input.addEventListener('blur', function () {
         let newValue = input.value;
         console.log(newValue);
         cell.innerHTML = newValue;
+
+        editTable.updateHistoryState(currentState);
     });
 
     input.addEventListener('keypress', function (event) {

@@ -55,49 +55,17 @@ button {
     cursor: pointer;
     width: 100%;
     border-radius: 5px;
-    box-shadow: 0 5px #999;
-}
-/* button span {
-    cursor: pointer;
-    display: inline-block;
-    position: relative;
-    transition: 0.5s;
-}
-  
-button span:after {
-    content: '\00bb';
-    position: absolute;
-    opacity: 0;
-    top: 0;
-    right: -20px;
-    transition: 0.5s;
-} 
-button:hover span {
-    width: 150%;
-    transition: 1s;
-}
-  
-button:hover span:after {
-    opacity: 1;
-    right: 0;
+    box-shadow: 0 6px #999;
 }
 button:hover {
-    opacity: 0.69;
+    opacity: 0.8;
 }
-button:disabled span {
-    width: 150%;
-    cursor: auto;
-} */
 button:disabled {
     opacity: 1;
     cursor:auto;
-    box-shadow: none;
-    border: 1px solid black;
+    box-shadow: 0 2px #999;
+    border: 1.5px solid rgb(70, 70, 70);
 }
-/* button:disabled span:after {
-    opacity: 1;
-    right: 0;
-} */
 body {
     margin: 0;
 }
@@ -110,7 +78,7 @@ body {
 .page header {
     display: flex;
     background: rgb(240, 240, 240);
-    height: 100px;
+    height: 85px;
     width: 100%;
     align-items: center;
     justify-content: center;
@@ -118,7 +86,7 @@ body {
 #pageSection {
     display: flex;
     width: 100%;
-    min-height: 500px;
+    min-height: 300px;
     flex-grow: 1;
 }
 .page section nav {
@@ -126,7 +94,8 @@ body {
     background: rgb(221, 221, 221);
     padding: 1em;
     flex-direction: column;
-    width: fit-content;
+    width: 15%;
+    max-width: 150px;
     flex-shrink: 0;
 }
 .page section nav button {
@@ -151,23 +120,25 @@ body {
     justify-content: center;
 }
 #appendColumnsLabel:hover {
-    animation: horizontalMove 1.3s ease-in-out infinite;
+    opacity: 0.8;
+    animation: horizontalMove 1.2s ease-in-out infinite;
 }
 
 #appendRowsLabel:hover {
-    animation: verticalMove 1.3s ease-in-out infinite;
+    opacity: 0.8;
+    animation: verticalMove 1.2s ease-in-out infinite;
 }
 
 @keyframes horizontalMove {
     0% { transform: translateX(0%); }
-    50% { transform: translateX(21%) scale(1.1); }
+    50% { transform: translateX(21%) scale(1.1, 0.75); }
     100% { transform: translateX(0%); }
   }
   
   
 @keyframes verticalMove {
     0% { transform: translateY(0%); }
-    50% { transform: translateY(21%) scale(1.1); }
+    50% { transform: translateY(21%) scale(0.75, 1.1); }
     100% { transform: translateY(0%); }
   }
 
@@ -236,11 +207,20 @@ body {
     .page section{
         flex-direction: column-reverse;
     }
+    .page header {
+        height: 69px;
+    }
+    .page header h1{
+        margin: 0 0;
+    }
     .page section nav{
         order: 1;
         width: 100%;
-        ;
+        max-width: 100%;
         box-sizing: border-box;
+    }
+    .page section nav h2{
+        margin: 0 0;
     }
     .page section main{
         order: -1;
