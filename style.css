@@ -5,29 +5,46 @@ h1 {
     text-align: center;
     color: #4CAF50;
 }
+h2 {
+    text-align: center;
+}
 table {
     border-collapse: collapse;
-    width: 100%;
     background-color: rgb(227, 227, 227);
 }
 th, td {
     border: 1px solid black;
-    padding: 8px;
+    padding: 8px 4px;
     text-align: center;
     cursor: pointer;
+    min-width: 80px;
+    width: 30px;
+    height: 1em;
+  }
+tr:nth-child(even) {
+    background-color: #f5f5f5;
 }
 th {
     background-color: grey;
     color: white;
 }
 th:hover {
-    opacity: 0.8;
+    opacity: 0.69;
     background-color: white;
     color: black;
 }
 td:hover {
-    opacity: 0.8;
+    opacity: 0.69;
     background-color: white;
+}
+#editCellInput {
+    display: table-cell;
+    width: fit-content;
+    width: 87%;
+    height: 100%;
+    border: none;
+    text-align: center;
+    font-size: 1em;
 }
 button {
     background-color: #4CAF50;
@@ -38,10 +55,49 @@ button {
     cursor: pointer;
     width: 100%;
     border-radius: 5px;
+    box-shadow: 0 5px #999;
+}
+/* button span {
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+    transition: 0.5s;
+}
+  
+button span:after {
+    content: '\00bb';
+    position: absolute;
+    opacity: 0;
+    top: 0;
+    right: -20px;
+    transition: 0.5s;
+} 
+button:hover span {
+    width: 150%;
+    transition: 1s;
+}
+  
+button:hover span:after {
+    opacity: 1;
+    right: 0;
 }
 button:hover {
-    opacity: 0.8;
+    opacity: 0.69;
 }
+button:disabled span {
+    width: 150%;
+    cursor: auto;
+} */
+button:disabled {
+    opacity: 1;
+    cursor:auto;
+    box-shadow: none;
+    border: 1px solid black;
+}
+/* button:disabled span:after {
+    opacity: 1;
+    right: 0;
+} */
 body {
     margin: 0;
 }
@@ -83,8 +139,57 @@ body {
     display: flex;
     flex-direction: column;
 }
-#tableContainer {
-    flex-grow: 1;
+#appendColumnsLabel, #appendRowsLabel {
+    padding: 0.5em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+#appendRowsLabel {
+    width: fit-content;
+    justify-content: center;
+}
+#appendColumnsLabel:hover {
+    animation: horizontalMove 1.3s ease-in-out infinite;
+}
+
+#appendRowsLabel:hover {
+    animation: verticalMove 1.3s ease-in-out infinite;
+}
+
+@keyframes horizontalMove {
+    0% { transform: translateX(0%); }
+    50% { transform: translateX(21%) scale(1.1); }
+    100% { transform: translateX(0%); }
+  }
+  
+  
+@keyframes verticalMove {
+    0% { transform: translateY(0%); }
+    50% { transform: translateY(21%) scale(1.1); }
+    100% { transform: translateY(0%); }
+  }
+
+#appendColumns, #appendRows {
+    display: none;
+}
+#appendRowsContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+#tablePlusButtonContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    box-sizing: initial;
+    container-type: inline-size;
+}
+
+#excelDataTable {
+    white-space: nowrap;
 }
 #upAndDown{
     margin-bottom: 1em;
@@ -122,7 +227,7 @@ body {
 .page footer {
     display: flex;
     background: rgb(232, 232, 232);
-    min-height: 100px;
+    min-height: 60px;
     justify-content: center;
     align-items: center;
 }

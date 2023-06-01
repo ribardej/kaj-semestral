@@ -16,10 +16,10 @@
         <section id="pageSection">
             <nav>
                 <h2>Tools</h2>
-                <button id="buttonCreate">Create</button>
-                <button id="buttonEdit">Edit</button>
+                <button id="buttonEdit"><span>Edit</span></button>
+                <button id="buttonCreate"><span>Create</span></button>
             </nav>
-            <main>
+            <main ondragover="handleDragOver(event)" ondrop="handleFileDrop(event)">
                 <section id="upAndDown">
                     <div id="upload">
                         <label for="excelFile">
@@ -36,7 +36,19 @@
                         <button id="buttonDownload"></button>
                     </div>
                 </section>
-                <div id="tableContainer"></div>
+                <section id="tablePlusButtonContainer">
+                    <div id="tableContainer"></div>
+                    <label for="appendColumns" id="appendColumnsLabel">
+                        <img src="resources/plus.svg" alt="Plus columns" id="appendColumnsSvg" height="25px">
+                    </label>
+                    <button id="appendColumns"></button>
+                </section>
+                <div id="appendRowsContainer">
+                    <label for="appendRows" id="appendRowsLabel">
+                        <img src="resources/plus.svg" alt="Plus rows" id="appendRowsSvg" height="25px">
+                    </label>
+                    <button id="appendRows"></button>
+                </div>
             </main>
         </section>
         <footer>
