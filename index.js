@@ -255,6 +255,8 @@ function handleDragOver(event) {
     const main = document.getElementsByTagName('main')[0];
     main.style.border = '2px dashed #000';
 }
+
+
   
 // Handle drag and drop file event
 function handleFileDrop(event) {

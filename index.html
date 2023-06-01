@@ -16,8 +16,8 @@
         <section id="pageSection">
             <nav>
                 <h2>Tools</h2>
-                <button id="buttonEdit"><span>Edit</span></button>
-                <button id="buttonCreate"><span>Create</span></button>
+                <button id="buttonEdit" onclick="audio.play();"><span>Edit</span></button>
+                <button id="buttonCreate" onclick="audio.play();"><span>Create</span></button>
             </nav>
             <main ondragover="handleDragOver(event)" ondrop="handleFileDrop(event)">
                 <section id="upAndDown">
@@ -56,5 +56,9 @@
         </footer>
     </div>
     <script lang="javascript" src="index.js"></script>
+    <script>
+        const audio = new Audio();
+        audio.src = "resources/clickSound.mp3";
+    </script>
 </body>
 </html>
