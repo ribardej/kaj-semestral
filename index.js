@@ -253,6 +253,7 @@ inputExcel.value = '';
 function handleDragOver(event) {
     event.preventDefault();
     const main = document.getElementById('main');
+    console.log(main);
     main.style.border = '2px dashed #000';
 }
 
@@ -262,6 +263,7 @@ function handleDragOver(event) {
 function handleFileDrop(event) {
     event.preventDefault();
     const main = document.getElementById('main');
+
     main.style.border = 'none';
 
     const file = event.dataTransfer.files[0];// Retrieve the dropped file from the event object
