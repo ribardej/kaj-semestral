@@ -252,7 +252,7 @@ inputExcel.value = '';
 
 function handleDragOver(event) {
     event.preventDefault();
-    const main = document.getElementsByTagName('main')[0];
+    const main = document.getElementById('main');
     main.style.border = '2px dashed #000';
 }
 
@@ -261,7 +261,7 @@ function handleDragOver(event) {
 // Handle drag and drop file event
 function handleFileDrop(event) {
     event.preventDefault();
-    const main = document.getElementsByTagName('main')[0];
+    const main = document.getElementById('main');
     main.style.border = 'none';
 
     const file = event.dataTransfer.files[0];// Retrieve the dropped file from the event object
