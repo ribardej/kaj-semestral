@@ -253,7 +253,6 @@ inputExcel.value = '';
 function handleDragOver(event) {
     event.preventDefault();
     const main = document.getElementById('main');
-    console.log(main);
     main.style.border = '2px dashed #000';
 }
 
