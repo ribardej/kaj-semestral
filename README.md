@@ -15,5 +15,5 @@ Pokud je tabulka příliž široká, objeví se horizontální scrollbar.
 V sekci "main" je připraven mechanismus drag&drop.  
 Animace jsou u :hover efektu nad tlačítky pro rozšíření tabulky.  
 Historie je funkční, avšak neupravuje URL stránky.  
-Aplikace funguje i offline. Aktivně však stav nekontroluje, jelikož připojení k internetu stejně nepotřebuje k funkčnosti.  
+Aplikace funguje i offline. Aktivně však stav nekontroluje, jelikož připojení k internetu(po načtení stránky) nepotřebuje k funkčnosti.  
 Audio je u kliknutí na tlačítka "Edit"/"Create" v sekci "Tools".  
