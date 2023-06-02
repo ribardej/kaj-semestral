@@ -101,7 +101,7 @@ body {
 .page section nav button {
     margin: 0.5em 0em;
 }
-.page section main {
+#main {
     padding: 1em;
     background: white;
     flex-grow: 1;
@@ -131,14 +131,14 @@ body {
 
 @keyframes horizontalMove {
     0% { transform: translateX(0%); }
-    50% { transform: translateX(21%) scale(1.1, 0.75); }
+    50% { transform: translateX(21%) scale(1.1, 0.85); }
     100% { transform: translateX(0%); }
   }
   
   
 @keyframes verticalMove {
     0% { transform: translateY(0%); }
-    50% { transform: translateY(21%) scale(0.75, 1.1); }
+    50% { transform: translateY(21%) scale(0.85, 1.1); }
     100% { transform: translateY(0%); }
   }
 
@@ -180,8 +180,9 @@ body {
     cursor: pointer;
     background-color: rgb(240, 240, 240);
 }
-#upAndDown p {
+#upAndDown label {
     margin: 0.5em 0;
+    padding: 0.7em 0.5em;
 }
 #upAndDown input {
     display: none;
@@ -222,7 +223,7 @@ body {
     .page section nav h2{
         margin: 0 0;
     }
-    .page section main{
+    #main{
         order: -1;
     }
 }

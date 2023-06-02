@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script lang="javascript" src="https://cdn.sheetjs.com/xlsx-0.19.3/package/dist/xlsx.full.min.js"></script>
+    <script src="https://cdn.sheetjs.com/xlsx-0.19.3/package/dist/xlsx.full.min.js"></script>
     <title>Excel Viewer</title>
     <link rel="stylesheet" href="style.css">
 </head>
@@ -19,19 +19,19 @@
                 <button id="buttonEdit" onclick="audio.play();"><span>Edit</span></button>
                 <button id="buttonCreate" onclick="audio.play();"><span>Create</span></button>
             </nav>
-            <main ondragover="handleDragOver(event)" ondrop="handleFileDrop(event)">
+            <div ondragover="handleDragOver(event)" ondrop="handleFileDrop(event)" id="main">
                 <section id="upAndDown">
                     <div id="upload">
                         <label for="excelFile">
-                            <p>Select an Excel file</p>
-                            <img src="resources/upload.svg" alt="Upload svg" id="upload_svg" height="25px">
+                            Select an Excel file
+                            <img src="resources/upload.svg" alt="Upload svg" id="upload_svg" style="height: 25px;">
                         </label>
                         <input type="file" id="excelFile" accept=".xls, .xlsx"/>
                     </div>
                     <div id="download">
                         <label for="buttonDownload">
-                            <p>Download as Excel file</p>
-                            <img src="resources/download.svg" alt="Download svg" id="download_svg" height="25px">
+                            Download as Excel file
+                            <img src="resources/download.svg" alt="Download svg" id="download_svg" style="height: 25px;">
                         </label>
                         <button id="buttonDownload"></button>
                     </div>
@@ -39,23 +39,23 @@
                 <section id="tablePlusButtonContainer">
                     <div id="tableContainer"></div>
                     <label for="appendColumns" id="appendColumnsLabel">
-                        <img src="resources/plus.svg" alt="Plus columns" id="appendColumnsSvg" height="25px">
+                        <img src="resources/plus.svg" alt="Plus columns" id="appendColumnsSvg" style="height: 25px;">
                     </label>
                     <button id="appendColumns"></button>
                 </section>
                 <div id="appendRowsContainer">
                     <label for="appendRows" id="appendRowsLabel">
-                        <img src="resources/plus.svg" alt="Plus rows" id="appendRowsSvg" height="25px">
+                        <img src="resources/plus.svg" alt="Plus rows" id="appendRowsSvg" style="height: 25px;">
                     </label>
                     <button id="appendRows"></button>
                 </div>
-            </main>
+            </div>
         </section>
         <footer>
             Created by Dejan Ribarovski | 2023
         </footer>
     </div>
-    <script lang="javascript" src="index.js"></script>
+    <script src="index.js"></script>
     <script>
         const audio = new Audio();
         audio.src = "resources/clickSound.mp3";
