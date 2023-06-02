@@ -99,7 +99,7 @@ class EditTable {
             state: stateVal,
             tableData: data.slice()
         };
-        history.replaceState(state, '', stateVal + '?=' + JSON.stringify(state.tableData));
+        history.replaceState(state, '', '');
         console.log(history.state);
     } 
 
@@ -128,14 +128,14 @@ class EditTable {
         state: stateVal,
         tableData: tableData.slice()
     };
-    history.pushState(state, '', stateVal + '?=' + JSON.stringify(tableData));
+    history.pushState(state, '', '');
     console.log(history.state);
 }
 }
 const editTable = new EditTable();
 
 let currentState = 'edit';
-history.pushState({ state: currentState }, '', 'edit');
+history.pushState({ state: currentState }, '', '');
 console.log(history.state);
 
 // Export the table to Excel format and download the file
@@ -185,7 +185,7 @@ buttonEdit.addEventListener('click', function() {
     editTable.clearTable();
     currentState = 'edit';
 
-    history.pushState({ state: 'edit', tableData: ''}, '', 'edit');
+    history.pushState({ state: 'edit', tableData: ''}, '', '');
     console.log(history.state);
 });
 
@@ -195,7 +195,7 @@ buttonCreate.addEventListener('click', function() {
     uploadDiv.style.display = 'none';
     currentState = 'create';
 
-    history.pushState({ state: 'create', tableData: '' }, '', 'create');
+    history.pushState({ state: 'create', tableData: '' }, '', '');
     console.log(history.state);
 
     const data = [
@@ -264,7 +264,7 @@ function handleFileDrop(event) {
     const main = document.getElementsByTagName('main')[0];
     main.style.border = 'none';
 
-    const file = event.dataTransfer.files[0]; // Retrieve the dropped file from the event object
+    const file = event.dataTransfer.files[0];// Retrieve the dropped file from the event object
     const reader = new FileReader();
     buttonEdit.click();
 
